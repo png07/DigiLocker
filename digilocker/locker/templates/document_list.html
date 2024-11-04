@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Your Documents{% endblock %}
+{% block content %}
+<div class="documents-container">
+    <h2>Your Documents</h2>
+    <ul>
+        {% for doc in documents %}
+            <li>
+                {{ doc.file_name }}
+                <div>
+                    <a href="{% url 'download_document' doc.id %}">Download</a>
+                    <a href="{% url 'delete_document' doc.id %}" class="delete" onclick="return confirm('Are you sure you want to delete this document?');">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li>No documents uploaded yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}">Back to Home</a>
+</div>
+{% endblock %}

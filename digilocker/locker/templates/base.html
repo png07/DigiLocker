@@ -1,0 +1,371 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DigiLocker{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+    
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Basic styling */
+        body, html {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f9;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #333;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo img {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .navbar a:hover {
+            color: #f0ad4e;
+        }
+
+        /* Main content */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        /* Centering the login-wrapper */
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 160px); /* Adjusted to fit within navbar and footer */
+        }
+
+        /* Styling the login box */
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Styling the title */
+        .login-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Form field styling */
+        .form-fields {
+            margin-bottom: 20px;
+            text-align: left; /* Align labels to the left */
+        }
+
+        .form-fields label {
+            font-weight: bold; /* Bold labels */
+            display: block; /* Display labels as block */
+            margin-bottom: 5px; /* Space between label and input */
+        }
+
+        .form-fields input[type="text"],
+        .form-fields input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Styling the buttons */
+        
+        .signup-button {
+            width: 50%;
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-block;
+            text-align: center;
+            margin: auto; /* Space between buttons */
+        }
+
+        .home-button {
+            width: 50%;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-block;
+            text-align: center;
+            margin: auto; /* Space between buttons */
+        }
+
+        .signup-button:hover{
+            background-color:#3d04b0;
+        }
+        .home-button:hover {
+            background-color:#f1f1f1;
+            border: 1px solid #000; 
+        }
+
+        /* Home page specific styles */
+        .home-content {
+            text-align: center; /* Center align home page content */
+        }
+
+        .home-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .home-content a {
+            display: block; /* Make links block elements */
+            color: #5c67f2;
+            text-decoration: none;
+            margin: 10px 0; /* Space between links */
+            font-weight: bold; /* Bold links */
+        }
+
+        .home-content a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        /* Styling the signup link */
+        .signup-link {
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .signup-link a {
+            color: #5c67f2;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        /* Upload Document page styles */
+        .upload-document h2 {
+            text-align: center; /* Center align the title */
+            color: #333; /* Title color */
+            margin-bottom: 20px; /* Space below the title */
+        }
+
+        .upload-document form {
+            max-width: 400px; /* Limit form width */
+            margin: 0 auto; /* Center form */
+            background-color: #fff; /* Background color for the form */
+            padding: 20px; /* Inner padding for the form */
+            border: 1px solid #e0e0e0; /* Border for the form */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .upload-document .form-fields {
+            margin-bottom: 20px; /* Space below each field */
+        }
+
+        .upload-document input[type="text"],
+        .upload-document input[type="file"] {
+            width: 100%; /* Full width inputs */
+            padding: 10px; /* Inner padding */
+            margin-top: 5px; /* Space above input */
+            border: 1px solid #ddd; /* Border style */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 1rem; /* Font size */
+            box-sizing: border-box; /* Include padding and border in width */
+        }
+
+        .upload-document button {
+            width: 100%; /* Full width button */
+            padding: 10px; /* Inner padding */
+            background-color: #5c67f2; /* Button background color */
+            color: #fff; /* Button text color */
+            border: none; /* Remove border */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 1rem; /* Font size */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s; /* Transition for hover effect */
+        }
+
+        .upload-document button:hover {
+            background-color: #444; /* Darker background on hover */
+        }
+
+        .upload-document a {
+            display: block; /* Make link block element */
+            text-align: center; /* Center align link text */
+            margin-top: 20px; /* Space above the link */
+            color: #5c67f2; /* Link color */
+            text-decoration: none; /* Remove underline */
+        }
+
+        .upload-document a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        /* Your Documents page styles */
+        .documents-container {
+            text-align: center; /* Center align the title */
+            margin: 20px auto; /* Center the container */
+        }
+
+        .documents-container h2 {
+            color: #333; /* Title color */
+            margin-bottom: 20px; /* Space below the title */
+        }
+
+        .documents-container ul {
+            list-style-type: none; /* Remove default list styles */
+            padding: 0; /* Remove padding */
+            max-width: 600px; /* Limit width of the list */
+            margin: 0 auto; /* Center the list */
+        }
+
+        .documents-container li {
+            padding: 10px; /* Inner padding for each list item */
+            border: 1px solid #ddd; /* Border for list items */
+            border-radius: 4px; /* Rounded corners */
+            margin-bottom: 10px; /* Space between items */
+            background-color: #fff; /* Background color for list items */
+            display: flex; /* Flex layout for inline elements */
+            justify-content: space-between; /* Space between elements */
+            align-items: center; /* Center align elements vertically */
+        }
+
+        .documents-container a {
+            color: #5c67f2; /* Link color */
+            text-decoration: none; /* Remove underline */
+            margin-left: 10px; /* Space between document name and links */
+        }
+
+        .documents-container a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+
+        .documents-container a.delete {
+            color: red; /* Color for delete link */
+        }
+
+        .documents-container a.delete:hover {
+            text-decoration: underline; /* Underline on hover for delete */
+        }
+        /* About Us page styling */
+        .about-us {
+            max-width: 800px; /* Max width for content */
+            margin: 20px auto; /* Centering the content */
+            padding: 20px; /* Padding around the content */
+            background-color: #fff; /* White background for contrast */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .about-us h2 {
+            color: #333; /* Heading color */
+            margin-bottom: 15px; /* Space below heading */
+        }
+
+        .about-us p {
+            line-height: 1.6; /* Improved readability */
+            color: #555; /* Slightly lighter color for text */
+            margin-bottom: 15px; /* Space below paragraphs */
+        }
+
+        .about-us ul {
+            margin-left: 20px; /* Indentation for list */
+            color: #555; /* Color for list items */
+        }
+
+        .about-us ul li {
+            margin-bottom: 10px; /* Space between list items */
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logo.png' %}" alt="DigiLocker Logo">
+            </a>
+        </div>
+        <div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'aboutus' %}">About Us</a>
+        </div>
+    </div>
+
+    <!-- Main content container -->
+    <div class="container">
+        {% block content %}
+        <!-- Page content will be injected here -->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 DigiLocker. All rights reserved.</p>
+    </div>
+</body>
+</html>

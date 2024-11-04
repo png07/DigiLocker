@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up {% endblock %}
+{% block content %}
+    <div class="login-wrapper">
+        <div class="login-box">
+            <div class="login-title">Sign Up</div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-fields">
+                    <label for="id_username">Username:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-fields">
+                    <label for="id_password1">Password:</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="form-fields">
+                    <label for="id_password2">Password confirmation:</label>
+                    {{ form.password2 }}
+                </div>
+                <button type="submit" class="signup-button">Sign Up</button>
+            </form>
+            <div class="signup-link">
+                <a href="{% url 'login' %}">Already have an account? Login here.</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

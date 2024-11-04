@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="home-content">
+        <h2>Welcome!</h2>
+        <a href="{% url 'upload_document' %}" class="home-button">Upload a new document</a>
+        <a href="{% url 'view_documents' %}" class="home-button">View your documents</a>
+        <a href="{% url 'logout' %}" class="home-button">Logout</a>
+    </div>
+{% endblock %}
